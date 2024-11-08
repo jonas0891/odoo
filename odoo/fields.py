@@ -2978,7 +2978,7 @@ class Many2one(_Relational):
         domain depending on the field attributes.
     """
     type = 'many2one'
-    column_type = ('int4', 'int4')
+    column_type = ('int8', 'int8')
 
     ondelete = None                     # what to do when value is deleted
     auto_join = False                   # whether joins are generated upon search
@@ -5130,7 +5130,7 @@ class Many2many(_RelationalMulti):
 class Id(Field):
     """ Special case for field 'id'. """
     type = 'integer'
-    column_type = ('int4', 'int4')
+    column_type = ('int8', 'int8')
 
     string = 'ID'
     store = True
