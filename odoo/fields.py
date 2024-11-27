@@ -1034,6 +1034,8 @@ class Field(MetaField('DummyField', (object,), {})):
             # the column does not exist, create it
             sql.create_column(model._cr, model._table, self.name, self.column_type[1], self.string)
             return
+        if column['udt_name'] == 'int8':
+            return
         if column['udt_name'] == self.column_type[0]:
             return
         if column['is_nullable'] == 'NO':
@@ -1420,7 +1422,7 @@ class Boolean(Field):
 class Integer(Field):
     """ Encapsulates an :class:`int`. """
     type = 'integer'
-    column_type = ('int8', 'int8')
+    column_type = ('int4', 'int4')
 
     group_operator = 'sum'
 
