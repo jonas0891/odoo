@@ -1420,7 +1420,7 @@ class Boolean(Field):
 class Integer(Field):
     """ Encapsulates an :class:`int`. """
     type = 'integer'
-    column_type = ('int4', 'int4')
+    column_type = ('int8', 'int8')
 
     group_operator = 'sum'
 
