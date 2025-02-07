@@ -1034,6 +1034,8 @@ class Field(MetaField('DummyField', (object,), {})):
             # the column does not exist, create it
             sql.create_column(model._cr, model._table, self.name, self.column_type[1], self.string)
             return
+        if column['udt_name'] == 'int8':
+            return
         if column['udt_name'] == self.column_type[0]:
             return
         if column['is_nullable'] == 'NO':
@@ -2982,7 +2984,7 @@ class Many2one(_Relational):
         domain depending on the field attributes.
     """
     type = 'many2one'
-    column_type = ('int4', 'int4')
+    column_type = ('int8', 'int8')
 
     ondelete = None                     # what to do when value is deleted
     auto_join = False                   # whether joins are generated upon search
@@ -5135,7 +5137,7 @@ class Many2many(_RelationalMulti):
 class Id(Field):
     """ Special case for field 'id'. """
     type = 'integer'
-    column_type = ('int4', 'int4')
+    column_type = ('int8', 'int8')
 
     string = 'ID'
     store = True
