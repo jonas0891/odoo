@@ -3189,7 +3189,7 @@ class BaseModel(metaclass=MetaModel):
                 
                 if odoo.tools.config['replica'] == True:
                     if self._is_replication():
-                        _logger.warn("es replica no actualizo")
+                        _logger.info(f"{self._table} es replica no actualizo")
                         continue
                 
                 new = field.update_db(self, columns)
