@@ -834,7 +834,10 @@ export class TicketScreen extends Component {
 
         const ids = ordersInfo.map((info) => info[0]);
         this._state.syncedOrders.totalCount = totalCount;
-        this._state.syncedOrders.toShow = ids.map((id) => this._state.syncedOrders.cache[id]);
+
+        // Eliminar ordenes undefined
+        // this._state.syncedOrders.toShow = ids.map((id) => this._state.syncedOrders.cache[id]);
+        this._state.syncedOrders.toShow = ids.map((id) => this._state.syncedOrders.cache[id]).filter(order => order !== undefined);
     }
     _getLastPage() {
         const totalCount = this._state.syncedOrders.totalCount;
