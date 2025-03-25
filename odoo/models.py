@@ -3187,7 +3187,7 @@ class BaseModel(metaclass=MetaModel):
                 if field.manual and not update_custom_fields:
                     continue            # don't update custom fields
                 
-                if odoo.tools.config['replica'] == True:
+                if odoo.tools.config.get('replica'):
                     if self._is_replication():
                         _logger.info(f"{self._table} es replica no actualizo")
                         continue
