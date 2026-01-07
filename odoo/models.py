@@ -3083,18 +3083,19 @@ class BaseModel(metaclass=MetaModel):
                 tools.drop_not_null(cr, self._table, row['attname'])
                 
     def _is_replication(self, log=False):
-        # check in some table , to see if is a replication table        
-
         cr = self._cr
-        sql = """ SELECT COUNT(1) 
+        sql = """
+            SELECT EXISTS(
+                SELECT 1 
                 FROM pglogical.replication_set_table 
-                WHERE set_reloid::text = '{table}' ;""".format(table = self._table)
-        cr.execute(sql)
-
-        if cr.rowcount >= 1:
-            return True
-        else:
-            return False
+                WHERE set_reloid::text = %s
+            )
+        """
+        cr.execute(sql, (self._table,))
+        is_replica = cr.fetchone()[0]
+        if log:
+            _logger.info("Table %s is_replication: %s", self._table, is_replica)
+        return is_replica
 
     def _init_column(self, column_name):
         """ Initialize the value of the given column for existing rows. """
